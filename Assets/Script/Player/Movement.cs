@@ -5,35 +5,29 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float moveSpeed;
-    public float sprintMultiplier; // The multiplier for sprint speed (40% faster)
-    public Rigidbody2D rigidbody; // Use the 'new' keyword to hide the inherited member
+    public float sprintMultiplier;
+    public new Rigidbody rigidbody; // Mengganti Rigidbody2D menjadi Rigidbody
     private Vector3 moveDirection;
-
-    public ParticleSystem dust;
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        // Mendapatkan input dari pemain
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Menghitung vektor arah berdasarkan input (mengubah sumbu Y ke Z)
+        moveDirection = new Vector3(horizontalInput, 0, verticalInput).normalized;
     }
 
     void FixedUpdate()
     {
         Move();
-    }
-
-    void ProcessInput()
-    {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        float moveZ = Input.GetAxisRaw("z"); // Tambahkan input untuk sumbu Z (Depth)
-
-        moveDirection = new Vector3(moveX, 0, moveZ).normalized; // Menggunakan Vector3 untuk semua tiga sumbu
     }
 
     void Move()
@@ -46,6 +40,7 @@ public class Movement : MonoBehaviour
             currentMoveSpeed *= sprintMultiplier;
         }
 
+        // Mengatur kecepatan rigidbody berdasarkan input (mengubah sumbu Y ke Z)
         rigidbody.velocity = moveDirection * currentMoveSpeed;
     }
 }
