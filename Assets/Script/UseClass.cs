@@ -27,7 +27,7 @@ public class UseClass : MonoBehaviour
         // Rotasi pistol
         transform.localRotation = Quaternion.Euler(0, 0, angle);
         // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotationSpeed * Time.deltaTime);
-        Debug.Log("Mouse Position (World): " + worldPosition);
+        // Debug.Log("Mouse Position (World): " + worldPosition);
         return worldPosition;
     }
 }
